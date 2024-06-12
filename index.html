@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps Proj</title>
+</head>
+<body>
+    <h2>DevOps Proj</h2>
+    <button onclick="fetchGreeting()">Get Greeting</button>
+    <p id="response"></p>
+
+    <script>
+        async function fetchGreeting() {
+            const responseElement = document.getElementById('response');
+
+            try {
+                const response = await fetch('http://localhost/api/greet');
+                if (response.ok) {
+                    const data = await response.json();
+                    const greeting = data.greeting;
+
+                    const now = new Date();
+                    const formattedDateTime = now.toLocaleString();
+
+                    responseElement.textContent = `${formattedDateTime} ${greeting}`;
+                } else {
+                    responseElement.textContent = "Error: Unable to get greeting.";
+                }
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
